@@ -9,8 +9,12 @@ find_package(OpenGL REQUIRED)
 find_package(GLUT REQUIRED)
 
 include_directories( ${OPENGL_INCLUDE_DIRS}  ${GLUT_INCLUDE_DIRS} )
+if (UNIX)
+    target_link_libraries(RobotOpenGL ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} -lm )
+else()
+    target_link_libraries(RobotOpenGL ${OPENGL_LIBRARIES} ${GLUT_LIBRARY})
+endif ()
 
-target_link_libraries(RobotOpenGL ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} )
 message("opengl glut: " ${OPENGL_LIBRARIES}" " ${GLUT_LIBRARY} )
 if(UNIX)
 SET(GCC_EXE "-Wall -Wextra -no-pie")
