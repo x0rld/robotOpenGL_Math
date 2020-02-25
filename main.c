@@ -106,7 +106,7 @@ void display(void){
     eyey = R * sin(phi);
     eyez = Rprim * cos(alpha);
 
-    gluLookAt(eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0); //TODO: C'est là où on doit modifier des trucs
+    gluLookAt(eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
     glColor3f(1.0f, 1.0f, 1.0f);
 
 
@@ -114,37 +114,9 @@ void display(void){
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientColor);
 
 
-    glPushMatrix();
-
-    glTranslatef(-1,0,0);
-    glutSolidSphere(0.5, 10, 10);
-    glRotatef(angleE, 0, 0, 1);
-    glTranslatef(1, 0, 0);
-
-    glPushMatrix();
-
-    glScalef(2, 1, 1);
-    glutWireCube(1.0);
-
-    glPopMatrix();
+   //TODO: Zone de création
 
 
-    glTranslatef(1,0,0);
-    glutSolidSphere(0.5, 10, 10);
-    glRotatef(angleC, 0, 0, 1);
-    glTranslatef(1, 0, 0);
-
-    glPushMatrix();
-
-    glScalef(2, 1, 1);
-    glutWireCube(1.0);
-
-    glPopMatrix();
-
-
-
-
-    glPopMatrix();
 
 
     glutSwapBuffers();
@@ -181,31 +153,31 @@ void reshape(int w, int h){
 /* Fonction de gestion au clavier des activations des lumières */
 void keyboard(unsigned char key, int x, int y) {
     switch (key) {
-        case '8' :
+        case 'z' :
             if(phi < M_PI_2 - 0.1){
                 phi += 0.1;
             }
             break;
 
-        case '2' :
+        case 's' :
             if(phi > -M_PI_2 + 0.1){
                 phi -= 0.1;
             }
             break;
 
-        case '6' :
+        case 'd' :
             alpha += 0.1;
             break;
 
-        case '4' :
+        case 'q' :
             alpha -= 0.1;
             break;
 
-        case '9' :
+        case 'c' :
             R += 1;
             break;
 
-        case '3' :
+        case 'v' :
             R -= 1;
             break;
     }
