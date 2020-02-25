@@ -12,7 +12,11 @@ include_directories( ${OPENGL_INCLUDE_DIRS}  ${GLUT_INCLUDE_DIRS} )
 
 target_link_libraries(tp2 ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} )
 message("opengl glut: " ${OPENGL_LIBRARIES}" " ${GLUT_LIBRARY} )
-SET(GCC_EXE "-Wall -W -Wextra -no-pie")
+if(UNIX)
+SET(GCC_EXE "-Wall -Wextra -no-pie")
+else()
+    SET(GCC_EXE "-Wall -Wextra")
+endif()
 SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${GCC_EXE}")
 
 message(${GCC_EXE})
