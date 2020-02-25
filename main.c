@@ -10,15 +10,21 @@
 #else
 #include <GL/glut.h>
 #include <stdbool.h>
-
-
 #endif
+#include<math.h>
 
 double angleE = 0.0;
 GLboolean etatE = true;
 double angleC = 0.0;
 GLboolean etatC = true;
 
+double R = 6;
+double Rprim;
+double alpha = 0;
+double phi = 0;
+double eyex = 0.0;
+double eyey = 0.0;
+double eyez = 5.0;
 
 /* prototypes de fonctions */
 void initRendering();
@@ -98,11 +104,13 @@ void display(void){
 
     glLoadIdentity();
 
+    Rprim = R * cos(phi);
 
+    eyex = Rprim * sin(alpha);
+    eyey = R * sin(phi);
+    eyez = Rprim * cos(alpha);
 
-
-    gluLookAt(0.0, 0.0, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-    glTranslatef(0.0f, 0.0f, -5.0f);                      // déplacement caméra
+    gluLookAt(eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0); //TODO: C'est là où on doit modifier des trucs
     glColor3f(1.0f, 1.0f, 1.0f);
 
 
@@ -177,34 +185,32 @@ void reshape(int w, int h){
 /* Fonction de gestion au clavier des activations des lumières */
 void keyboard(unsigned char key, int x, int y) {
     switch (key) {
-
-        case 'q':
-            if (etatE == true) {
-                angleE += 3;
-            } else {
-                angleE -= 3;
-            }
-
-            if (angleE >= 45) {
-                etatE = false;
-            }
-            if (angleE <= 0) {
-                etatE = true;
+        case '8' :
+            if(phi < M_PI_2 - 0.1){
+                phi += 0.1;
             }
             break;
 
-        case 'd':
-            if (etatC == true) {
-                angleC += 3;
-            } else {
-                angleC -= 3;
+        case '2' :
+            if(phi > -M_PI_2 + 0.1){
+                phi -= 0.1;
             }
+            break;
 
-            if (angleC >= 45) {
-                etatC = false;
-            }
-            if (angleC <= 0) {
-                etatC = true;
-            }
+        case '6' :
+            alpha += 0.1;
+            break;
+
+        case '4' :
+            alpha -= 0.1;
+            break;
+
+        case '9' :
+            R += 1;
+            break;
+
+        case '3' :
+            R -= 1;
+            break;
     }
 }
