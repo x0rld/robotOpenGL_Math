@@ -13,10 +13,6 @@
 #endif
 #include<math.h>
 
-double angleE = 0.0;
-GLboolean etatE = true;
-double angleC = 0.0;
-GLboolean etatC = true;
 
 double R = 6;
 double Rprim;
