@@ -123,30 +123,39 @@ void display(void){
 	// Ajout lumière ambiante
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientColor);
 
-
-    //Tête
+	// Tête globale
 
     glPushMatrix();
+
+        // Cou
 
         glPushMatrix();
             glRotatef(cou,1,0,0);
             gluCylinder(params,1,1,2.5,20,1);
         glPopMatrix();
 
+        // Tête
+
        glPushMatrix();
            glRotatef(tete,1,0,0);
            gluCylinder(params,1,1,2,20,1);
        glPopMatrix();
+
+       // Jointure tête <-> cou
 
        glPushMatrix();
            glTranslatef(0,0,0);
            glutSolidSphere(1,10,10);
        glPopMatrix();
 
+       // Museau
+
        glPushMatrix();
            glTranslatef(0,-1.25,-1.5);
            glutSolidSphere(1,10,10);
        glPopMatrix();
+
+       // Oeil droit
 
        glPushMatrix();
            glTranslatef(0.75,0,-0.75);
@@ -154,11 +163,15 @@ void display(void){
            glutSolidSphere(0.2,10,10);
        glPopMatrix();
 
+       // Oeil gauche
+
        glPushMatrix();
            glTranslatef(-0.75,0,-0.75);
            glColor3f(0.0f, 0.0f, 0.0f);
            glutSolidSphere(0.2,10,10);
        glPopMatrix();
+
+
 
     glPopMatrix();
 
