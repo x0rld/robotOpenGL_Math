@@ -9,15 +9,15 @@
 /*													        */
 /************************************************************/
 /*													        */
-/*  Objectif: afficher des formes 3D et illuminer la scène  */
+/*  Objectif: afficher des formes 3D et illuminer la scï¿½ne  */
 /*													        */
 /************************************************************/
 
 
 
-
+#ifdef _WIN32_
 #include<windows.h>
-
+#endif
 #ifdef __APPLE__
 #include <GLUT/glut.h>
 #else
@@ -41,7 +41,7 @@ double Y1;
 double Z1;
 
 GLUquadric* params;
-
+GLUquadric* poil;
 
 /* prototypes de fonctions */
 void initRendering();
@@ -70,13 +70,13 @@ int main(int argc,  char **argv){
 	glutTimerFunc (20,update, 0);
 	glutKeyboardFunc(keyboard);
 
-	/* Entrée dans la boucle principale de glut, traitement des évènements */
+	/* Entrï¿½e dans la boucle principale de glut, traitement des ï¿½vï¿½nements */
     glutMainLoop();
     return 0;
 }
 
 
-/* Initialisation d'OpenGL pour le rendu de la scène */
+/* Initialisation d'OpenGL pour le rendu de la scï¿½ne */
 void initRendering() {
 
     /* Active le z-buffer */
@@ -85,33 +85,34 @@ void initRendering() {
 	/* Activation des couleurs */
 	glEnable(GL_COLOR_MATERIAL);
 
-	/* définit la couleur d'effacement et la couleur de fond */
+	/* dï¿½finit la couleur d'effacement et la couleur de fond */
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 
-	/* Activation des lumières */
+	/* Activation des lumiï¿½res */
 	//glEnable(GL_LIGHTING);          // Activation du mode
-	//glEnable(GL_LIGHT0);            // Activation lumière n°0
-	//glEnable(GL_LIGHT1);            // Activation lumière n°1
-	//glEnable(GL_LIGHT2);            // Activation lumière n°2
+	//glEnable(GL_LIGHT0);            // Activation lumiï¿½re nï¿½0
+	//glEnable(GL_LIGHT1);            // Activation lumiï¿½re nï¿½1
+	//glEnable(GL_LIGHT2);            // Activation lumiï¿½re nï¿½2
 
-	/* Les normales (crées par glNormal(*)) sont automatiquement unitaires */
+	/* Les normales (crï¿½es par glNormal(*)) sont automatiquement unitaires */
 	glEnable(GL_NORMALIZE);
 
 
 	/* Activation du mode ombrage (shading) et lissage (smooth) des couleur */
 	glShadeModel(GL_SMOOTH);
 
-	/*  définit la taille d'un pixel*/
+	/*  dï¿½finit la taille d'un pixel*/
 	glPointSize(2.0);
 
 }
 
-/* Création de la scène avec lampes */
+/* Crï¿½ation de la scï¿½ne avec lampes */
 void display(void){
     params = gluNewQuadric();
+    poil = gluNewQuadric();
 
 
-	/* Déclaration des couleurs et positions des lampes */
+	/* Dï¿½claration des couleurs et positions des lampes */
 	GLfloat ambientColor[] = {0.2f, 0.2f, 0.2f, 1.0f};   // Color (0.2, 0.2, 0.2)
 
 
@@ -132,17 +133,17 @@ void display(void){
 	Z1 = R * cos(phi)* cos(alpha);
 
 	gluLookAt(X1, Y1, Z1, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-	//glTranslatef(0.0f, 0.0f, -5.0f);                      // déplacement caméra
+	//glTranslatef(0.0f, 0.0f, -5.0f);                      // dï¿½placement camï¿½ra
 	glColor3f(1.0f, 1.0f, 1.0f);
 
 
-	// Ajout lumière ambiante
+	// Ajout lumiï¿½re ambiante
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientColor);
 
 
 
     //Creation du cube
-
+/*
     glPushMatrix();
 
 
@@ -180,13 +181,22 @@ void display(void){
 
 
 
+    glPopMatrix();*/
+
+
+    glPushMatrix();
+    glScalef(5,1,1);
+    glTranslatef(-1.5,1,1);
+    glRotatef(150,10,0,1);
+    glutSolidSphere(0.5,20,10);
     glPopMatrix();
 
-
-
-
-
-
+    glPushMatrix();
+    glColor3f(255,0,255);
+    glTranslatef(-1,0,0);
+    glScalef(12,5,5);
+    glutSolidSphere(0.5,10,10);
+    glPopMatrix();
 
 
 	//glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient_color);
@@ -206,7 +216,7 @@ void display(void){
 }
 
 
-/* Fonction de mise à jour: mouvements des objets*/
+/* Fonction de mise ï¿½ jour: mouvements des objets*/
 void update(int value){
 
 
@@ -218,7 +228,7 @@ void update(int value){
 }
 
 
-/*  Mise en forme de la scène pour l'affichage */
+/*  Mise en forme de la scï¿½ne pour l'affichage */
 void reshape(int w, int h){
 	glViewport(0, 0,(GLsizei) w, (GLsizei) h);
     glMatrixMode(GL_PROJECTION);
@@ -236,7 +246,7 @@ void reshape(int w, int h){
 void keyboard(unsigned char key, int x, int y) {
 		switch (key){
 
-			case 'a':   /* monté l'epaule*/
+			case 'a':   /* montï¿½ l'epaule*/
 				epaule += 1;
 
                 if (epaule > 45){
@@ -244,13 +254,13 @@ void keyboard(unsigned char key, int x, int y) {
                 }
 				break;
 
-			case 'b':   /* monté le coude*/
+			case 'b':   /* montï¿½ le coude*/
 			    coude += 1;
 				if (coude > 45){
                     coude = 45;
                 }
 				break;
-            case 'z':    /*Descendre l'épaule*/
+            case 'z':    /*Descendre l'ï¿½paule*/
                 epaule -= 1;
 
                 if (epaule < -45){
@@ -276,23 +286,23 @@ void keyboard(unsigned char key, int x, int y) {
                     alpha -= 0.1;
 				}
 				break;
-            case 'y':   /* Monté l'autre */
+            case 'y':   /* Montï¿½ l'autre */
                 if(phi < M_PI_2-0.1){
                 phi += 0.1;
                 }
 
 				break;
-            case 'u':   /* Monté l'autre */
+            case 'u':   /* Montï¿½ l'autre */
                 if(phi > -M_PI_2+0.1){
                 phi -= 0.1;
                 }
 
 				break;
-            case 'q':   /* Monté l'autre */
+            case 'q':   /* Montï¿½ l'autre */
                 R+=0.5;
 
                 break;
-            case 's':   /* Monté l'autre */
+            case 's':   /* Montï¿½ l'autre */
                 R-=0.5;
 
 				break;
