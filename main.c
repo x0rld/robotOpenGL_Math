@@ -14,6 +14,8 @@
 
 float epaule = 0.0;
 float coude = 0.0;
+int tete = 140;
+int cou = 40;
 
 double R= 6;
 double alpha =0;
@@ -41,7 +43,7 @@ int main(int argc,  char **argv){
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(500, 500);
 	glutInitWindowPosition (100, 100);
-	glutCreateWindow("TP2: primitives 3D et illumination");
+	glutCreateWindow("Projet Robot OpenGL");
 
 	/* Initialisation d'OpenGL */
 	initRendering();
@@ -122,45 +124,41 @@ void display(void){
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientColor);
 
 
-
-    //Creation du cube
+    //Tête
 
     glPushMatrix();
 
-
-
         glPushMatrix();
-            glutSolidSphere(1,10,10);
-            glRotatef(epaule,0,0,1);
-        glPopMatrix();
-
-        glPushMatrix();
+            glRotatef(cou,1,0,0);
             gluCylinder(params,1,1,2.5,20,1);
         glPopMatrix();
 
-        glPushMatrix();
-            glTranslatef(-1,0,-1);
-            glRotatef(40,0,1,0);
-            gluCylinder(params,1,0.5,1.5,20,1);
-            glTranslatef(1,0,0);
-        glPopMatrix();
+       glPushMatrix();
+           glRotatef(tete,1,0,0);
+           gluCylinder(params,1,1,2,20,1);
+       glPopMatrix();
 
-        glPushMatrix();
-            glTranslatef(-1.1,0,-0.8);
-            glutSolidSphere(1,10,10);
-            glTranslatef(1,0,0);
-        glPopMatrix();
+       glPushMatrix();
+           glTranslatef(0,0,0);
+           glutSolidSphere(1,10,10);
+       glPopMatrix();
 
-        glPushMatrix();
-            glTranslatef(-1.1,0,-1.9);
-            gluCylinder(params,1,1,1.2,20,1);
-            glTranslatef(1,0,0);
-        glPopMatrix();
+       glPushMatrix();
+           glTranslatef(0,-1.25,-1.5);
+           glutSolidSphere(1,10,10);
+       glPopMatrix();
 
+       glPushMatrix();
+           glTranslatef(0.75,0,-0.75);
+           glColor3f(0.0f, 0.0f, 0.0f);
+           glutSolidSphere(0.2,10,10);
+       glPopMatrix();
 
-
-
-
+       glPushMatrix();
+           glTranslatef(-0.75,0,-0.75);
+           glColor3f(0.0f, 0.0f, 0.0f);
+           glutSolidSphere(0.2,10,10);
+       glPopMatrix();
 
     glPopMatrix();
 
